@@ -1,0 +1,76 @@
+.container{
+  margin-top: 30px;
+  padding-bottom: 45vh;
+}
+.circle-tile {
+  margin-bottom: 15px;
+  text-align: center;
+}
+.circle-tile-heading {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 100%;
+  color: #FFFFFF;
+  height: 80px;
+  margin: 0 auto -40px;
+  position: relative;
+  transition: all 0.3s ease-in-out 0s;
+  width: 80px;
+}
+.circle-tile-heading .fa {
+  line-height: 80px;
+}
+.circle-tile-content {
+  padding-top: 50px;
+}
+.circle-tile-content-game{
+  background-image: url("src/assets/images/AdminImages/sports.png");
+  background-position: 100%;
+}
+.circle-tile-content-booking{
+  background-image: url("src/assets/images/AdminImages/bookings.jpeg");
+  background-position: 40%;
+  background-repeat: no-repeat;
+}
+.circle-tile-content-review{
+  background-image: url("src/assets/images/AdminImages/review.png");
+}
+.circle-tile-number {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 5px 0 15px;
+}
+.circle-tile-description {
+  text-transform: uppercase;
+}
+.circle-tile-footer {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+  display: block;
+  padding: 5px;
+  transition: all 0.3s ease-in-out 0s;
+}
+.circle-tile-footer:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+}
+.circle-tile-heading.dark-blue:hover {
+  background-color: #2E4154;
+}
+
+.tile-img {
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.9);
+}
+
+.dark-blue {
+  background-color: #34495E;
+}
+
+.text-dark-blue {
+  color: #34495E;
+}
+.text-faded {
+  color: rgba(255, 255, 255, 0.7);
+}
+

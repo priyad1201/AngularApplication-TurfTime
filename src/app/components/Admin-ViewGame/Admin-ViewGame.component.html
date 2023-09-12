@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<section class="container-fluid">
+  <nav aria-label="breadcrumb" style="margin-left: 5px;">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/admin-home">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Games</li>
+    </ol>
+  </nav>
+  <div class="row" style="width: 19rem; margin-left: 20px;">
+    <div class="card">
+      <div class="card-body">
+        <h4>20% off to all Games</h4>
+        <h5>Valid for 1 day</h5>
+
+        <a *ngIf="!(offerService.isOfferValid ||isOfferValid)" (click)="offerService.applyOffer()" class="btn btn-outline-info">Apply Offer</a>
+
+        <div *ngIf="offerService.isOfferValid || isOfferValid">
+          <h5 class="text text-success">Offer Applied!</h5>
+          <span class="text">Ends in: {{offerService.Days || this.Days}} Day {{offerService.Hours||Hours}} Hr {{offerService.Minutes||Minutes}} Min {{offerService.Seconds||Seconds}} Sec</span>
+          <a (click)="endOffer()" class="btn btn-sm btn-outline-danger" style="margin-top: 5px;">End Offer</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="gamesList && gamesList.length > 0" class="row">
+    <div *ngFor="let game of gamesList" class="card" style="width: 20rem; margin-left: 40px; margin-top: 20px;">
+      <img src="TurfTimeApi/wwwroot/GameImage/{{game.imageUrl}}" style="height: 80%;" class="img-fluid card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title" style="text-align: center;">{{game.sportName}} - {{game.category}}</h5>
+        <div *ngIf="!offerService.isOfferValid" class="row d-flex mt-4">
+          <h5>Price Details:</h5>
+          <h6>Weekdays - {{ game.priceForWeekday |currency:'INR'}}/hour</h6>
+          <h6>Weekend - {{ game.priceForWeekend |currency:'INR'}}/hour</h6>
+        </div>
+        <div *ngIf="offerService.isOfferValid" class="row d-flex mt-4">
+          <h5>Price Details: <span class="badge rounded-pill bg-success">offer applied</span></h5>
+          <h6>Weekdays - {{ game.priceForWeekday | OfferPrice:20 |currency:'INR' }}/hour</h6>
+          <small style="text-decoration: line-through;" class="text-danger">Weekdays - {{ game.priceForWeekday |currency:'INR'}}/hour</small>
+          <h6>Weekend - {{ game.priceForWeekend | OfferPrice:20 |currency:'INR' }}/hour</h6>
+          <small style="text-decoration: line-through;" class="text-danger">Weekend - {{ game.priceForWeekend |currency:'INR'}}/hour</small>
+        </div>
+          <div class="card-body" style="text-align: center;">
+            <a routerLink="/admin-editGame/{{game.id}}" class="btn btn-outline-secondary"><i class="bi bi-pencil-square"></i> Details</a>
+            <a (click)="deleteGame(game.id)" class="btn btn-outline-danger"><i class="bi bi-trash-fill"></i> Game</a>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!gamesList || gamesList.length<=0" class="col">
+      <div class="card" style="width: 92rem;">
+        <div class="card-body">
+          <h4 style="text-align: center;">There is currently no Games Available </h4>
+          <h5 style="text-align: center;"><a routerLink="/admin-addGame">Add Game</a> to the Turf</h5>
+        </div>
+      </div>
+  </div>
+</section>

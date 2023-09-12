@@ -1,0 +1,74 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><section class="vh-130" style="background-color: #eee;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px; margin-top: 10px; margin-bottom: 10px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <form class="form-control" #loginForm="ngForm">
+                  <div class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+
+                    <span class="h1 fw-bold mb-0">Hello</span>
+                  </div>
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; text-align: center;">Sign into your account</h5>
+                  <!-- <div *ngIf="isError" class="alert alert-danger">
+                    {{isError}}
+                  </div> -->
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="emailId">Email Id</label>
+                    <input type="text" id="emailId" #emailId="ngModel" name="emailId" class="form-control" ngModel required />
+                    <div class="text-danger" *ngIf="emailId.errors && (emailId.dirty||emailId.touched)">
+                      <small [hidden]="!emailId.errors['required']">Email Id is required</small>
+                    </div>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" #password="ngModel" name="password" class="form-control" ngModel required minlength="8">
+                    <!-- <span class="fa fa-eye-slash"></span> -->
+                    <div class="text-danger" *ngIf="password.errors && (password.dirty||password.touched)" >
+                      <small [hidden]="!password.errors['required']">Password is required</small>
+                      <small [hidden]="!password.errors['minlength']">Password should be atleast 8 characters</small>
+                    </div>
+                  </div>
+
+                  <div class="pt-1 mb-4">
+                    <button [disabled]="!loginForm.form.valid" (click)="onLogin(loginForm.value)" class="btn btn-primary btn-lg btn-block" style="margin-left: 160px;" type="submit">Login</button>
+                  </div>
+
+                  <a class="small text-muted" (click)="open(content)" style="cursor: pointer;">Forgot password?</a>
+                  <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account?
+                    <a routerLink="/register" style="color: #393f81;">Register here</a></p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Forgot your password?</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <small style="margin-left: 10px;">Please provide your Email Id, we will send the reset link</small>
+  <div class="modal-body">
+
+    <form class="px-4" >
+      <div class="form-outline mb-4">
+        <label class="form-label">Email Id</label>
+        <!-- (ngModelChange)="checkValidEmail($event)" -->
+        <input class="form-control" [(ngModel)]="resetPasswordEmail" />
+          <!-- <small class="text-danger" *ngIf="!resetPasswordEmail">Email Id is required</small>
+          <small class="text-danger" *ngIf="!isValidEmail && resetPasswordEmail">Email Id is Invalid</small> -->
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');">Send</button>
+  </div>
+</ng-template>
+<router-outlet></router-outlet>

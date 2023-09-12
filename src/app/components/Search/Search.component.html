@@ -1,0 +1,9 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<section class="container-fluid" style="margin-top: 10px;">
+  <div class="row d-flex">
+    <div *ngFor="let games of searchResult" class="card d-flex" style="width: 25rem; margin-left: 40px; margin-bottom: 20px;">
+      <a routerLink="/user-viewGameDetails/{{games.id}}"><img src="TurfTimeApi/wwwroot/GameImage/{{games.imageUrl}}" class="img-fluid card-img-top"></a>
+      <h5 class="mt-0" style="text-align: center;">{{games.sportName}} - {{games.category}}</h5>
+    </div>
+  </div>
+</section>

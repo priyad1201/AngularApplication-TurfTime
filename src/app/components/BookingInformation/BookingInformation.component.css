@@ -1,0 +1,140 @@
+
+.d-flex{
+  flex-direction: row;
+}
+
+
+body{
+  margin-top:20px;
+  background:#eee;
+}
+/* My Account */
+.payments-item img.mr-3 {
+  width: 47px;
+}
+.order-list .btn {
+  border-radius: 2px;
+  min-width: 121px;
+  font-size: 13px;
+  padding: 7px 0 7px 0;
+}
+
+.card offer-card h5.card-title {
+  border: 2px dotted #000;
+}
+.card.offer-card h5 {
+  border: 1px dotted #daceb7;
+  display: inline-table;
+  color: #17a2b8;
+  margin: 0 0 19px 0;
+  font-size: 15px;
+  padding: 6px 10px 6px 6px;
+  border-radius: 2px;
+  background: #fffae6;
+  position: relative;
+}
+.card.offer-card h5 img {
+  height: 22px;
+  object-fit: cover;
+  width: 22px;
+  margin: 0 8px 0 0;
+  border-radius: 2px;
+}
+.card.offer-card h5:after {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #daceb7;
+  content: "";
+  left: 30px;
+  position: absolute;
+  bottom: 0;
+}
+.card.offer-card h5:before {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #daceb7;
+  content: "";
+  left: 30px;
+  position: absolute;
+  top: 0;
+}
+.payments-item .media {
+  align-items: center;
+}
+.payments-item .media img {
+  margin: 0 40px 0 11px !important;
+}
+.reviews-members .media .mr-3 {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+}
+.order-list img.mr-4 {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075)!important;
+  border-radius: 2px;
+}
+.osahan-cart-item p.text-gray.float-right {
+  margin: 3px 0 0 0;
+  font-size: 12px;
+}
+.osahan-cart-item .food-item {
+  vertical-align: bottom;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  color: #000000;
+}
+
+.shadow-sm {
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+.rounded-pill {
+  border-radius: 50rem!important;
+}
+a:hover{
+  text-decoration:none;
+}
+
+.rating{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-gap: .5rem;
+  font-size: 2rem;
+  color: #ffc000;
+}
+.rating .star{
+  cursor: pointer;
+}
+.rating .star.active{
+  opacity: 0;
+  animation: animate .5s ease-in-out forwards;
+}
+@keyframes animate{
+  0%{
+    opacity: 0;
+    transform: scale(1);
+  }
+  50%{
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.rating,.star:hover
+{
+  transform: scale(1.1);
+}
+.btn-display{
+  padding: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 50px;
+}

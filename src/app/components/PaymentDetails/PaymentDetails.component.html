@@ -1,0 +1,152 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<section *ngIf="paymentDetails" class="container">
+  <!-- <div class="justify-content-center mt-3"> -->
+  <div class="row" style="justify-content: center;">
+    <div class="d-flex" style="margin-left: 90vh;margin-top: 20px;margin-bottom: 0px;">
+      <a routerLink="/user-bookingSummary" style="color: black;" class="btn btn-outline-dark" type="button"><i class="fa fa-angles-left"></i> Go Back</a>
+    </div>
+    <div class="col col-lg-6">
+      <br><span class="h4">Payment Method</span><br><br>
+      <div class="d-flex justify-content-end">
+        <span>Amount payable: {{advanceAmount | currency:'INR'}}</span>
+      </div>
+      <form  [formGroup]="paymentForm">
+      <div class="card">
+        <div class="accordion" id="accordionExample">
+          <div class="card">
+            <div class="card-header p-0" (click)="isCardHidden=!isCardHidden; isUpiHidden = true; selectPaymentMethod('cardPayment')" >
+              <h2 class="mb-0">
+                <button class="btn text-left p-3 rounded-0" data-toggle="collapse"
+                  data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <div class="d-flex align-items-center justify-content-between">
+
+                    <span>Credit card/Debit Card</span>
+                    <div class="icons">
+                      <img src="https://i.imgur.com/2ISgYja.png" width="30">
+                      <img src="https://i.imgur.com/W1vtnOV.png" width="30">
+                      <img src="https://i.imgur.com/35tC99g.png" width="30">
+                    </div>
+                  </div>
+                </button>
+              </h2>
+            </div>
+
+            <div [hidden]="isCardHidden" id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body payment-card-body">
+
+                <span class="font-weight-normal card-text">Card Holder Name</span>
+                <div class="input">
+                  <i class="fa fa-user"></i>
+                  <input type="text" class="form-control" placeholder="Ex: PRIYADARSHINI" formControlName="cardHolderName" >
+                  <div class="text-danger" *ngIf="paymentForm.controls['cardHolderName'].invalid && paymentForm.controls['cardHolderName'].touched">
+                    <small [hidden]="!paymentForm.controls['cardHolderName'].errors?.['required']">Card Holder Name is required</small>
+                  </div>
+                </div>
+                <span class="font-weight-normal card-text">Card Number</span>
+                <div class="input">
+                  <i class="fa fa-credit-card"></i>
+                  <input type="text" class="form-control" placeholder="0000 0000 0000 0000" formControlName="cardNumber">
+                  <div class="text-danger" *ngIf="paymentForm.controls['cardNumber'].invalid && paymentForm.controls['cardNumber'].touched">
+                    <small [hidden]="!paymentForm.controls['cardNumber'].errors?.['required']">Card Number is required</small>
+                    <small [hidden]="!paymentForm.controls['cardNumber'].errors?.['pattern']">Enter valid card number</small>
+                  </div>
+                </div>
+                <div class="row mt-3 mb-3">
+                  <div class="col-md-6">
+                    <span class="font-weight-normal card-text">Expiry Date</span>
+                    <div class="input">
+                      <i class="fa fa-calendar"></i>
+                      <input type="text" class="form-control" placeholder="MM/YY" formControlName="expiryDate">
+                      <div class="text-danger" *ngIf="paymentForm.controls['expiryDate'].invalid && paymentForm.controls['expiryDate'].touched">
+                        <small [hidden]="!paymentForm.controls['expiryDate'].errors?.['required']">Expiry Date is required</small>
+                        <small [hidden]="!paymentForm.controls['expiryDate'].errors?.['pattern']">Enter valid Expiry Date</small>
+                        <small [hidden]="!paymentForm.controls['expiryDate'].errors?.['expired']">Card is expired</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <span class="font-weight-normal card-text">CVV</span>
+                    <div class="input">
+                      <i class="fa fa-lock"></i>
+                      <input type="text" class="form-control" placeholder="000" formControlName="cvv" >
+                      <div class="text-danger" *ngIf="paymentForm.controls['cvv'].invalid && paymentForm.controls['cvv'].touched">
+                        <small [hidden]="!paymentForm.controls['cvv'].errors?.['required']">CVV is required</small>
+                        <small [hidden]="!paymentForm.controls['cvv'].errors?.['pattern']">Enter valid CVV</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header p-0" id="headingTwo" (click)="isUpiHidden=!isUpiHidden; isCardHidden=true; selectPaymentMethod('upiPayment')">
+              <h2 class="mb-0">
+                <button class="btn text-left p-3 rounded-0"
+                  role="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                  aria-controls="collapseTwo">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <span>Other UPI</span>
+                    <img src="https://www.shipindiasey.com/img/gpay.png?20210802033648" width="30">
+                    <img src="https://aqustech.com/wp-content/uploads/2020/12/PhonePe-App-Download-For-PC-Logo-1024x1024.png" width="30">
+                    <img src="https://4.bp.blogspot.com/-aohmB7C9oFw/VPg-0MBkInI/AAAAAAAAABw/xz9HFxwdTn8/s1600/Paytm-logo.png" width="50" height="40">
+                    <!-- <img src="https://i.imgur.com/7kQEsHU.png" width="30"> -->
+                  </div>
+                </button>
+              </h2>
+            </div>
+            <div [hidden]="isUpiHidden" id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div class="card-body">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked style="margin-right: 5px;">
+                  <label class="form-check-label" for="flexRadioDefault2">Pay by Entering UPI ID</label>
+                  <br><br>
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInputValue" placeholder="Ex: username@bankname" formControlName="virtualPaymentAddress">
+                <label for="floatingInputValue">Enter VPA</label>
+                <div class="text-danger" *ngIf="paymentForm.controls['virtualPaymentAddress'].invalid && paymentForm.controls['virtualPaymentAddress'].touched">
+                  <small [hidden]="!paymentForm.controls['virtualPaymentAddress'].errors?.['required']">VPA is required</small>
+                  <small [hidden]="!paymentForm.controls['virtualPaymentAddress'].errors?.['pattern']">Enter valid UPI Id</small>
+                </div>
+              </div>
+
+              <!-- <div class="text text-or" style="text-align: center;">OR</div>
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInputValue" placeholder="Ex: username@bankname" formControlName="VPA">
+                <label for="floatingInputValue">Enter Mobile Number / UPI Number</label>
+                <div class="text-danger" *ngIf="paymentForm.controls['VPA'].invalid && paymentForm.controls['VPA'].touched">
+                  <small [hidden]="!paymentForm.controls['VPA'].errors?.['required']">VPA is required</small>
+                  <small [hidden]="!paymentForm.controls['VPA'].errors?.['pattern']">Enter valid UPI Id</small>
+                </div>
+              </div> -->
+              </div>
+            </div>
+          </div>
+          <!-- <div class="form-check" style="margin-left: 5px;">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              Save my Card
+            </label>
+          </div> -->
+          <span class="text-muted certificate-text" style="margin-left: 5px;"><i class="fa fa-lock"></i> Your transaction is secured with
+            ssl certificate</span>
+          <div class="d-flex justify-content-end p-2 me-2">
+            <button [disabled]="!paymentForm.valid" (click)="doPayment(paymentForm.value)" type="submit" class="btn btn-primary btn-md">Pay Now</button>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+<!-- </div> -->
+</section>
+
+<section *ngIf="paymentMessage" class="container" style="margin-top: 50px; margin-bottom: 0px; height:75vh;">
+  <div class="d-flex justify-content-center mt-3">
+    <div class="text-success mt-5">
+      <img src="assets/images/success.png" alt="" width="150" height="150" class="d-inline-block align-text-center" style="margin-left: 35%;">
+      <br><strong style="margin-left: 35%;">Payment Successfull!</strong><br>
+      Thank you for the Payment, You will be redirected to "My Bookings" Page within few seconds
+    </div>
+  </div>
+</section>

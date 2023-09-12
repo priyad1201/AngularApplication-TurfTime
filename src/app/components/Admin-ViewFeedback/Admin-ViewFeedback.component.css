@@ -1,0 +1,11 @@
+.link-muted { color: #aaa; }
+.link-muted:hover .fa-heart{ color: red; }
+.link-muted:hover .fa-pencil-alt{ color: gray; }
+.star-rating li {
+	padding: 0;
+  size: 7cap;
+}
+.star-rating i {
+	font-size: 14px;
+	color: #ffc000;
+}

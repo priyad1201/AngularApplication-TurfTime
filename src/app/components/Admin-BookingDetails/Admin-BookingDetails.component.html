@@ -1,0 +1,50 @@
+<section class="container mt-3">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/admin-home">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Booking Details</li>
+    </ol>
+  </nav>
+  <table class="table align-middle mb-0 bg-white" style="text-align: center;">
+    <thead class="bg-light">
+      <tr>
+        <th>Name</th>
+        <th>Booking Id</th>
+        <th>Sport</th>
+        <th>Venue</th>
+        <th>Date of Slot</th>
+        <th>Timing</th>
+        <th>Payment Status</th>
+        <!-- <th>Action</th> -->
+      </tr>
+    </thead>
+    <tbody *ngFor="let user of bookedSlot">
+      <tr *ngFor="let booking of user.myBookings">
+        <td>
+          <div class="text">
+            <p class="fw-bold mb-1">{{user.fullName}}</p>
+            <p class="text-muted mb-0">{{user.emailId}}</p>
+          </div>
+        </td>
+        <td *ngIf="booking.reservationId==''">-</td>
+        <td *ngIf="booking.reservationId!=''"> {{booking.reservationId}}</td>
+        <td> {{booking.sportName}}</td>
+        <td> {{booking.venueName}}</td>
+        <td> {{booking.dateOfSlot | date}}</td>
+
+          <td>
+            <div *ngFor="let slot of booking.timeSlots">
+            {{slot.startTime}} - {{slot.endTime}}
+            </div>
+          </td>
+        <td>
+          <span *ngIf="booking.paymentStatus=='unpaid'" class="badge rounded-pill text-bg-warning">Pending</span>
+          <span *ngIf="booking.paymentStatus=='paid'" class="badge rounded-pill text-bg-success">Paid</span>
+        </td>
+        <!-- <td>
+          <button type="button" class="btn btn-link btn-sm btn-rounded">View</button>
+        </td> -->
+      </tr>
+    </tbody>
+  </table>
+</section>

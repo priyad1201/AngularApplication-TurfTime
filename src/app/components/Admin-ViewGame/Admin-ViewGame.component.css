@@ -1,0 +1,17 @@
+.btn{
+  margin-right: 10px;
+}
+.message{
+  width: 35%;
+  margin: 25px;
+}
+.alert{
+  text-align: center;
+}
+h6, small{
+  margin-left: 20px;
+}
+.container-fluid
+{
+  margin: 10px;
+}

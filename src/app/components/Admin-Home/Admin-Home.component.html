@@ -1,0 +1,40 @@
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<div class="container bootstrap snippet">
+  <div class="row d-flex" style="justify-content: space-evenly;">
+    <div class="col-lg-3 col-sm-6">
+      <div class="circle-tile ">
+        <a href="#"><div class="circle-tile-heading dark-blue"></div></a>
+        <div class="circle-tile-content dark-blue">
+          <div class="circle-tile-description text-faded"> Games</div>
+          <div class="circle-tile-number text-faded ">{{totalGames}}</div>
+          <a class="circle-tile-footer" routerLink="/admin-viewGame">View <i class="fa fa-chevron-circle-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6">
+      <div class="circle-tile ">
+        <a href="#"><div class="circle-tile-heading dark-blue"></div></a>
+        <div class="circle-tile-content dark-blue">
+
+          <div class="circle-tile-description text-faded"> Reviews</div>
+          <div class="circle-tile-number text-faded ">{{totalFeedback}}</div>
+          <a class="circle-tile-footer" routerLink="/admin-viewFeedback">View <i class="fa fa-chevron-circle-right"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="circle-tile ">
+        <!-- <i class="fa fa-users fa-fw fa-3x"></i> -->
+        <a href="#"><div class="circle-tile-heading dark-blue"></div></a>
+        <div class="circle-tile-content dark-blue">
+          <div class="circle-tile-description text-faded"> Booking Details </div>
+          <div class="circle-tile-number text-faded ">{{totalBookedSlots}}</div>
+          <a class="circle-tile-footer" routerLink="/admin-viewBookingDetails">View <i class="fa fa-chevron-circle-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

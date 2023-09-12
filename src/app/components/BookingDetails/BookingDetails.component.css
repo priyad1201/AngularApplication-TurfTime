@@ -1,0 +1,28 @@
+
+.well {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+}
+.btn-turf{
+  margin-right: 5px;
+  width: 10rem;
+  padding-left: 0%;
+  padding-right: 0%;
+  margin-top: 10px;
+}
+.selected {
+  background-color: #307fd8;
+}
+.btn-danger {
+  background-color: red;
+  color: white;
+}
+input[disabled]{
+  cursor: not-allowed;
+}

@@ -1,0 +1,157 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<section class="vh-150" style="margin-top: 10px;">
+  <div class="container-fluid" style="width: 95%;">
+    <div *ngIf="this.authService.isLoggedIn()" class="row d-flex justify-content-center align-items-center">
+      <div *ngIf="userCart && userCart.myBookings.length > 0" class="col">
+        <div class="d-flex btn-back">
+          <a routerLink="/user-bookingInformation" class="btn" style="padding-left: 0px;
+          padding-bottom: 10px;"><i class="fa fa-angles-left"></i> Back to My Bookings</a><br>
+        </div>
+        <span class="h4">Booking Summary</span><br><br>
+        <div *ngFor="let cart of userCart.myBookings">
+          <div *ngIf="cart.paymentStatus==='unpaid'">
+            <div class="card mb-4">
+              <div class="card-body p-4">
+                <div class="table table-borderless" style="margin-bottom: 0%;">
+                  <tbody>
+                  <tr>
+                    <td>
+                      <div class="col">
+                        <img src="TurfTimeApi/wwwroot/GameImage/{{cart.sportImageUrl}}"
+                          class="img-fluid" alt="image" width="200" height="100" style="margin-bottom: 10px;">
+                          <p class="lead fw-normal mb-0">{{cart.sportName}}</p>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="col d-flex justify-content-center">
+                        <div>
+                          <p class="small text-muted mb-4 pb-2">Date Of Slot</p>
+                          <p class="lead fw-normal mb-0">{{cart.dateOfSlot | date}}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="col d-flex justify-content-center">
+                        <div>
+                          <p class="small text-muted mb-4 pb-2">Playing Hours</p>
+                          <p class="lead fw-normal mb-0">{{cart.numberOfHours}}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="col d-flex justify-content-center">
+                        <div>
+                          <p class="small text-muted mb-4 pb-2">Selected Slots</p>
+                          <div *ngFor="let slot of cart.timeSlots">
+                            <p class="lead fw-normal mb-1">{{slot.startTime}} - {{slot.endTime}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="col d-flex justify-content-center">
+                        <div>
+                          <p class="small text-muted mb-4 pb-2">Price/hour</p>
+                          <p class="lead fw-normal mb-0">{{cart.pricePerHour}}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="col d-flex justify-content-center">
+                        <div>
+                          <p class="small text-muted mb-4 ">Payment Status</p>
+                          <p class="lead fw-normal mb-0">Pending</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="col d-flex justify-content-center">
+                        <div>
+                          <p class="small text-muted mb-4 pb-2">Total</p>
+                          <p class="lead fw-normal mb-0">{{cart.totalAmount}}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="col d-flex justify-content-center">
+                        <p>
+                          <!-- <a routerLink="/user-editbookingdetails/{{cart.id}}" type="button" class="btn btn-outline-secondary btn-sm" style="margin-top: 10px;">Edit Booking</a> -->
+                          <a type="button" (click)="cancelBooking(cart.bookingId)" class="btn btn-outline-danger btn-sm" style="margin-top: 20px;">Cancel Booking</a>
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </div>
+                <div class="card card-payment mb-2">
+                  <div class="card-body">
+                    <div class="float-end">
+                      <table class="table table-borderless">
+                        <tbody style="text-align: right;">
+                          <tr>
+                            <th scope="row"><span class="small text-muted me-3">Total Amount:</span> </th>
+                            <td><span class="lead fw-normal">{{cart.totalAmount}}</span></td>
+                          </tr>
+                          <tr>
+                            <th scope="row"><span class="small text-muted me-3">Advance Booking Amount:</span> </th>
+                            <td><span class="lead fw-normal">{{ advanceAmount }}</span></td>
+                          </tr>
+                          <tr>
+                            <th scope="row"><span class="small text-muted me-3">Balance Amount (payable at venue):</span></th>
+                            <td><span class="lead fw-normal">{{ cart.totalAmount-advanceAmount}}</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div class="d-flex align-items-start">
+                        <div class="form-check d-flex justify-content-start">
+                          <input class="form-check-input me-2" type="checkbox" [(ngModel)]="termsAndConditions" />
+                          <label class="form-check-label" for="">
+                            I agree all statements in <a href="#!" placement="bottom">Terms of service</a>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="text-danger d-flex justify-content-end mb-3 me-3" *ngIf="errorMessage!=null">
+                        <small>{{errorMessage}}</small>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-end me-3">
+                  <!-- <a type="button" class="btn btn-light btn-md me-2">Pay Later</a> -->
+                  <a (click)="proceedToPayment(cart.bookingId)" type="button" class="btn btn-primary btn-md">Proceed to Payment</a>
+                </div>
+              </div>
+              <div class="text" style="padding: 10px;">
+                Note: Once the payment is done the amount is not refunded and the boooking cannot be cancelled
+              </div>
+            </div>
+
+        </div>
+        </div>
+        <div *ngIf="paymentStatus==0">
+          <div class="card">
+            <div class="card-body">
+              <h4 style="text-align: center;">There is currently no payments to be done</h4>
+              <h5 style="text-align: center;"><a routerLink="/user-bookingDetails">Book Slot</a> for a day in Turf time</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="userCart && userCart.myBookings.length === 0" class="col">
+        <div class="d-flex btn-back">
+          <a routerLink="/user-bookingInformation" class="btn" style="padding-left: 0px;
+          padding-bottom: 10px;"><i class="fa fa-angles-left"></i> Back to My Bookings</a><br>
+        </div>
+        <span class="h4">Booking Summary</span><br><br>
+          <div class="card">
+            <div class="card-body">
+              <h4 style="text-align: center;">There is currently no slots booked </h4>
+              <h5 style="text-align: center;"><a routerLink="/user-bookingDetails">Book Slot</a> as soon as possible</h5>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>

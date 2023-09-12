@@ -1,0 +1,94 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="height: 50px;">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink=""><img src="assets/images/logo.png" width="100" height="40" class="img-fluid rounded-top rounded-bottom d-inline-block align-text-top">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div [ngSwitch]="menuType" class="collapse navbar-collapse" id="navbarResponsive">
+      <ul *ngSwitchCase="'default'" class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="user-home">Home
+            <span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="contactus">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="user-bookSlot">Book Slot</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="user-bookingInformation">My Bookings</a>
+        </li>
+      </ul>
+      <ul *ngIf="menuType==='default'">
+        <form class="d-flex mt-3 SearchContainer">
+          <input class="form-control me-sm-2 SearchBox" type="text" #searchValue placeholder="search games" (keyup)="searchProduct($event)" (blur)="hideSearch()">
+          <button (click)="submitSearch(searchValue.value)" class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+          <ul *ngIf="searchResult" class="suggested-search">
+            <h6 *ngFor="let item of searchResult">
+              <a style="cursor: pointer;" (mousedown)="redirectToDetails(item.id)">{{item.sportName}}</a>
+            </h6>
+          </ul>
+        </form>
+      </ul>
+      <ul *ngSwitchCase="'default'"class="navbar-nav ms-md-auto">
+        <ul *ngIf="!this.authService.isLoggedIn()" class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="login"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
+          </li>
+        </ul>
+        <ul *ngIf="this.authService.isLoggedIn()" class="navbar-nav">
+          <li class="nav-item-dropdown">
+            <div ngbDropdown class="d-inline-block">
+              <a type="button" class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+                Hello {{fullName}}
+              </a>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <a routerLink="/user-profile" ngbDropdownItem><i class="bi bi-person-lines-fill"></i> My Profile</a>
+                <a routerLink="/user-bookingSummary" ngbDropdownItem><i class="bi bi-calendar2-check"></i> Turf Cart</a>
+                <a (click)="logout()" type="button" ngbDropdownItem><i class="bi bi-box-arrow-left"></i> Logout</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </ul>
+      <ul *ngSwitchCase="'admin'" class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="admin-home">Home
+            <span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="contactus">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="admin-addGame">Add Games</a>
+        </li>
+      </ul>
+      <ul *ngSwitchCase="'admin'" class="navbar-nav ms-md-auto">
+        <ul *ngIf="this.authService.isLoggedIn()" class="navbar-nav">
+          <li class="nav-item-dropdown">
+            <div ngbDropdown class="d-inline-block">
+              <a type="button" class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+                Hello {{fullName}}
+              </a>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <a (click)="logout()" type="button" ngbDropdownItem><i class="bi bi-box-arrow-left"></i> Logout</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <ul *ngIf="!this.authService.isLoggedIn()" class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="login"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
+          </li>
+        </ul>
+      </ul>
+    </div>
+  </div>
+</nav>
+<router-outlet></router-outlet>

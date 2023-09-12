@@ -1,0 +1,114 @@
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+<section class="vh-130" style="background-color: #eee;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px; margin-top: 10px; margin-bottom: 10px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-lg-10 col-lg-6 ">
+                <form class="form-control" [formGroup]="bookSlot" (ngSubmit)="onSubmit()">
+                  <h5 class="fw-normal mb-3 pb-3" style="text-align: center;">Booking Details</h5>
+
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-outline mb-4">
+                        <label class="form-label" for="venueName">Venue Name</label>
+                        <select class="form-select" id="venueName" name="venueName" aria-label="Default select example"
+                          formControlName="venueName" (ngModelChange)="onInputChange()">
+                          <option value="B&C Mills, Stephenson Road, Perambur">B&C Mills, Stephenson Road, Perambur
+                          </option>
+                          <option value="2nd Floor, Bharathi Nagar, Kodungaiyur">2nd Floor, Bharathi Nagar, Kodungaiyur
+                          </option>
+                        </select>
+                        <div class="text-danger" *ngIf="bookSlot.controls['venueName'].invalid && bookSlot.controls['venueName'].touched" >
+                          <small [hidden]="!bookSlot.controls['venueName'].errors?.['required']">select the venue</small>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="col-lg-6">
+                      <div class="form-outline mb-4">
+                        <div *ngIf="gameData && gameData.sportName">
+                          <label class="form-label" for="sportName">Sport Name</label>
+                          <input type="text" id="sportName" name="sportName" class="form-control" formControlName="sportName" [value]="gameData.sportName" readonly />
+                        </div>
+                        <div *ngIf="!gameData || !gameData.sportName">
+                          <label class="form-label" for="sportName">Sport Name</label>
+                          <select class="form-select" id="sportName" name="sportName" aria-label="Default select example" formControlName="sportName">
+                            <option *ngFor="let sport of gamesList" [value]="sport.sportName">{{ sport.sportName }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div> -->
+                    <div class="col-lg-6">
+                      <div class="form-outline mb-4">
+                        <label class="form-label" for="sportName">Sport Name</label>
+                        <select class="form-select" id="sportName" name="sportName" aria-label="Default select example"
+                          formControlName="sportName">
+                        <option *ngFor="let sport of gamesList" [value]="sport.sportName">{{ sport.sportName }}</option>
+                        </select>
+
+                        <div class="text-danger" *ngIf="bookSlot.controls['sportName'].invalid && bookSlot.controls['sportName'].touched" >
+                          <small [hidden]="!bookSlot.controls['sportName'].errors?.['required']">select the sport name</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-outline mb-4">
+                        <label class="form-label" for="dateOfSlot">Date</label>
+                        <input type="date" min="{{minDate}}" id="dateOfSlot" name="dateOfSlot" class="form-control"
+                          formControlName="dateOfSlot" />
+                          <div class="text-danger" *ngIf="bookSlot.controls['dateOfSlot'].invalid && bookSlot.controls['dateOfSlot'].touched" >
+                            <small [hidden]="!bookSlot.controls['dateOfSlot'].errors?.['required']">select the date of slot needed</small>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="showSlot()" class="well">
+                    <div class="row">
+                      <div class="col-xs-12" style="padding-left:15px; padding-left:15px;padding-top:0px">
+                        <h5>Available Slots &nbsp; &nbsp;</h5>
+                        <span><i class="fa fa-square text-success"></i> - Available</span>&nbsp; &nbsp;<span><i
+                            class="fa fa-square text-danger"></i> - Not Available</span>&nbsp; &nbsp;<span
+                          class="hidden-sm hidden-xs"><i class="fa fa-square text-info"></i> - Selected</span>
+                        <hr>
+                      </div>
+                      <div class="text-danger" style="text-align:center;" *ngIf="errorMessage!=null">
+                        <h6>{{errorMessage}}</h6>
+                      </div>
+                      <div class="col-xs-14 ng-scope" >
+                        <div class="row row-turf">
+                          <div class="col-md-15">
+                            <button type="button" class="btn btn-xs btn-turf ng-binding ng-scope btn-success"
+                              *ngFor="let timeSlot of timeSlots"
+                              [class.selected]="timeSlot.selected"
+                              [class.btn-danger]="!timeSlot.available"
+                              (click)="toggleTimeSlotSelection(timeSlot)">
+                              {{ timeSlot.startTime }} - {{ timeSlot.endTime }}
+                            </button>
+                          </div>
+                        </div>
+                        <hr>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row" style="text-align: end;">
+                    <div class="pt-1 mb-4">
+                      <button class="btn btn-primary" style="margin-left: 160px;"
+                        type="submit">Book Now</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

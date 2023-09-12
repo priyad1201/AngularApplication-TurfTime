@@ -1,0 +1,57 @@
+.accordion:hover {
+  cursor: pointer;
+}
+
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap"); */
+body {
+  background-color: #f5eee7;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+}
+.container {
+  height: 100vh;
+}
+.card-header {
+  padding: .5rem 1rem;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, .03);
+  border-bottom: none;
+}
+.btn:focus{
+  border: none;
+}
+.form-control {
+  height: 50px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #039be5;
+  outline: 0;
+  box-shadow: none;
+}
+.input {
+  position: relative;
+}
+.input i {
+  position: absolute;
+  top: 16px;
+  left: 11px;
+  color: #989898;
+}
+.input input {
+  text-indent: 25px;
+}
+.card-text {
+
+  font-size: 13px;
+  margin-left: 6px;
+}
+.certificate-text {
+  font-size: 12px;
+  padding-left: 10px;
+}
+
+

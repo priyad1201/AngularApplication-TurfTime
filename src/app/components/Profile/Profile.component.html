@@ -1,0 +1,72 @@
+<section class="h-100">
+  <div class="container py-5 h-100">
+    <div *ngIf="userCart" class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-9 col-xl-7">
+        <div class="card">
+          <div class="rounded-top text-white d-flex flex-row gradient-custom-2" style="height:200px;">
+            <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+              <img src="assets/images/profile.jpg"
+                alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+                style="width: 150px; z-index: 1">
+              <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                style="z-index: 1;" (click)="openEditForm(content)">
+                Edit profile
+              </button>
+            </div>
+            <div class="ms-2" style="margin-top: 150px;">
+              <h5>{{userCart.fullName}}</h5>
+            </div>
+          </div>
+          <div class="p-4 text-black" style="background-color: #f8f9fa;">
+            <div class="d-flex justify-content-end text-center py-1">
+              <div>
+                <p class="mb-1 h5">{{totalBookings}}</p>
+                <p class="small text-muted mb-0">Bookings</p>
+              </div>
+              <div class="px-3">
+                <p class="mb-1 h5">{{totalCart}}</p>
+                <p class="small text-muted mb-0">Turf Cart</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-4 text-black">
+            <div class="mb-5">
+              <p class="lead fw-normal mb-1">Profile Details</p>
+              <div class="p-4" style="background-color: #f8f9fa;">
+                <p class="font-italic mb-1">Full Name: {{ userCart.fullName}}</p>
+                <p class="font-italic mb-1">EmailId: {{ userCart.emailId}}</p>
+                <p class="font-italic mb-1">Mobile Number: {{ userCart.mobileNumber}}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <ng-template #content let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Edit Profile Request</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="editProfile">
+              <div class="form-outline mb-4">
+                <label class="form-label" for="fullName">Full Name</label>
+                <input class="form-control" type="text" name="fullName" id="fullName" formControlName="fullName">
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="emailId">Email Id</label>
+                <input class="form-control" type="email" name="emailId" id="emailId" formControlName="emailId">
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="mobileNumber">Mobile Number</label>
+                <input class="form-control" type="text" name="mobileNumber" id="mobileNumber" formControlName="mobileNumber">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click'); onSubmit()">Submit</button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</section>

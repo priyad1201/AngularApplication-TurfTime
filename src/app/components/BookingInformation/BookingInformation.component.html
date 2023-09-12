@@ -1,0 +1,252 @@
+<section class="container-fluid" style="width: 95%; margin-top: 20px;" >
+  <div *ngIf="this.authService.isLoggedIn()" class="col-md-14">
+    <div *ngIf="userCart && userCart.myBookings.length > 0" >
+      <div class="tab-content" id="myTabContent">
+        <div class="row" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+          <div class="col d-flex" style="justify-content: start;">
+            <span class="h4">My Bookings</span><br><br>
+          </div>
+          <div class="col d-flex" style="justify-content: end;">
+            <a routerLink="/user-bookingSummary" class="btn">View Turf Cart <i class="fa fa-angles-right"></i></a>
+          </div>
+          <div class="d-flex">
+            <button class="btn btn-outline-dark btn-display" (click)="filterBookings('All')">All Booking</button>
+            <button class="btn btn-outline-dark btn-display" (click)="filterBookings('Upcoming')">Upcoming</button>
+            <button class="btn btn-outline-dark btn-display" (click)="filterBookings('Completed')">Completed</button>
+          </div>
+          <div class="bg-white card mb-4 order-list shadow-sm">
+            <div *ngFor="let cart of filteredBookings" class="gold-members p-2">
+              <div *ngFor="let game of gameDetails">
+                <div *ngIf="game.sportName == cart.sportName">
+                  <div *ngIf="cart.paymentStatus==='paid'" class="media">
+                    <div ngbAccordion>
+                      <div ngbAccordionItem [collapsed]="true">
+                        <h2 ngbAccordionHeader>
+                          <button ngbAccordionButton>
+                            <div class="col-sm-2">
+                              <img src="TurfTimeApi/wwwroot/GameImage/{{cart.sportImageUrl}}" class="img-fluid" alt="image"
+                                width="200" height="100" style="margin-bottom: 10px;">
+                              <h6 class="mb-2">Booking {{cart.reservationId}}</h6>
+                            </div>
+                            <div class="col-md-3">
+                              <p class="lead fw-normal mb-0">{{cart.sportName}}</p>
+                              Date Of Slot Booked: {{cart.dateOfSlot | date}}
+                            </div>
+                          </button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                          <div ngbAccordionBody>
+                            <ng-template>
+                              <p class="mb-0" style="text-align: end;">Booked On : {{cart.dateOfBooking | date}}</p>
+                                <div class="row" style="margin-left: 4px;">
+                                  Location : {{cart.venueName}}
+                                </div>
+                                <div class="row" style="margin-left: 4px;">
+                                  Slots :
+                                  <div *ngFor="let slot of cart.timeSlots">
+                                    <p class="text-gray mb-0">{{slot.startTime}} - {{slot.endTime}}</p>
+                                  </div>
+                                </div>
+                                <hr>
+                                <p class="mb-0"><span class="text-black"> Advance Amount: </span><span class="badge rounded-pill text-bg-success">Paid</span></p>
+                                <p class="mb-0"><span class="text-black"> Balance Amount Payable(at venue): </span>{{ cart.totalAmount - 200| currency:'INR'}}</p>
+
+                                <div class="col d-flex" style="justify-content: end;">
+                                  <button class="btn btn-md btn-outline-primary" style="margin: 5px;padding-left: 5px;padding-right: 5px;" (click)="open(content)">GIVE US YOUR FEEDBACK</button>
+                                  <a class="btn btn-sm btn-outline-primary" routerLink="/contactus" style="margin: 5px; justify-content: end;">HELP</a>
+                                  <a class="btn btn-sm btn-outline-primary" routerLink="/user-bookingDetails/{{game.id}}" style="margin: 5px; justify-content: end;">RE-BOOK</a>
+                                </div>
+                            </ng-template>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="userCart && userCart.myBookings.length == 0">
+      <div class="row">
+        <div class="col d-flex" style="justify-content: start;">
+          <span class="h4">My Bookings</span><br><br>
+        </div>
+        <div class="col d-flex" style="justify-content: end;">
+          <a routerLink="/user-bookingSummary" class="btn">View Turf Cart <i class="fa fa-angles-right"></i></a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h4 style="text-align: center;">There is currently no booking journey available</h4>
+          <h5 style="text-align: center;"> Don't wait <a routerLink="/user-bookingDetails">Book</a> now for an exciting game!</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!this.authService.isLoggedIn()" class="col-md-14">
+    <div class="osahan-account-page-right shadow-sm bg-white p-4 h-100">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane  fade  active show" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+          <h4 class="font-weight-bold mt-0 mb-4">My Bookings</h4>
+          <div class="bg-white card mb-4 order-list shadow-sm">
+            <div class="card-body">
+              <h4 style="text-align: center;">You are not logged in</h4>
+              <h5 style="text-align: center;"><a routerLink="/login">Login</a> to see your bookings details</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Feedback Request</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<div class="text-center">
+      <i class="far fa-file-alt fa-4x mb-3 text-primary"></i>
+      <p>
+        <strong>Your opinion matters</strong>
+      </p>
+      <p>
+        Have some ideas to improve our turf?
+        <strong>Give us your feedback.</strong>
+      </p>
+    </div>
+
+    <hr />
+    <form class="px-4" [formGroup]="feedbackForm">
+      <p class="text-center"><strong>Your rating:</strong></p>
+      <div class="mb-3">
+        <div class="rating">
+          <input type="number" name="ratings" hidden>
+          <i class='bx bx-star star' [class.bxs-star]="ratingValue >= 1" (click)="setRating(1)"></i>
+          <i class='bx bx-star star'[class.bxs-star]="ratingValue >= 2" (click)="setRating(2)"></i>
+          <i class='bx bx-star star'[class.bxs-star]="ratingValue >= 3" (click)="setRating(3)"></i>
+          <i class='bx bx-star star'[class.bxs-star]="ratingValue >= 4" (click)="setRating(4)"></i>
+          <i class='bx bx-star star'[class.bxs-star]="ratingValue >= 5" (click)="setRating(5)"></i>
+        </div>
+      </div>
+      <p class="text-center"><strong>What could we improve?</strong></p>
+      <div class="form-outline mb-4">
+        <label class="form-label" for="comments">Your feedback</label>
+        <textarea class="form-control" id="comments" formControlName="comments" rows="4"></textarea>
+      </div>
+    </form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');submitFeedback()">Submit</button>
+	</div>
+</ng-template>
+
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+<section class="vh-150" style="margin-top: 50px;">
+  <div class="container-fluid" style="width: 95%;">
+    <div *ngIf="this.authService.isLoggedIn()" class="row d-flex justify-content-center align-items-center">
+      <div *ngIf="userCart && userCart.myBookings.length > 0" class="col">
+        <div class="row">
+          <div class="col d-flex" style="justify-content: start;">
+            <span class="h4">My Bookings</span><br><br>
+          </div>
+          <div class="col d-flex" style="justify-content: end;">
+            <a routerLink="/user-bookingSummary" class="btn">View Turf Cart <i class="fa fa-angles-right"></i></a>
+          </div>
+        </div>
+        <div *ngFor="let cart of userCart.myBookings">
+          <div *ngIf="cart.paymentStatus==='paid'">
+
+            <div class="card mb-4">
+              <div class="card-body p-4">
+                <div class="row align-items-center">
+                  <div class="col-md-2">
+                    <p class="lead fw-normal mb-0">{{cart.sportName}}</p>
+                  </div>
+                  <div class="col-sm-2 d-flex justify-content-center">
+                    <div>
+                      <p class="small text-muted mb-4 pb-2">Date Of Slot</p>
+                      <p class="lead fw-normal mb-0">
+                        {{cart.dateOfSlot | date}}</p>
+                    </div>
+                  </div>
+                  <div class="col-md-1 d-flex justify-content-center">
+                    <div>
+                      <p class="small text-muted mb-4 pb-2"></p>
+                      <p class="lead fw-normal mb-0"></p>
+                    </div>
+                  </div>
+                  <div class="col-md-2 d-flex justify-content-center">
+                    <div>
+                      <p class="small text-muted mb-4 pb-2">Slot</p>
+                      <div *ngFor="let slot of cart.timeSlots">
+                        <p class="lead fw-normal mb-1">{{slot.startTime}} - {{slot.endTime}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1 d-flex justify-content-center">
+                    <div>
+                      <p class="small text-muted mb-4 pb-2">Venue</p>
+                      <p class="lead fw-normal mb-0"></p>
+                    </div>
+                  </div>
+                  <div class="col-md-2 d-flex justify-content-center">
+                    <div>
+                      <p class="small text-muted mb-4 pb-2">Payment Status</p>
+                      <p class="lead fw-normal mb-0">{{cart.paymentStatus | titlecase}}</p>
+                    </div>
+                  </div>
+                  <div class="col-md-1 d-flex justify-content-center">
+                    <div>
+                      <p class="small text-muted mb-4 pb-2">Total</p>
+                      <p class="lead fw-normal mb-0">{{cart.totalAmount}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <div *ngIf="userCart && userCart.myBookings.length === 0" class="col">
+        <div class="row">
+          <div class="col d-flex" style="justify-content: start;">
+            <span class="h4">My Bookings</span><br><br>
+          </div>
+          <div class="col d-flex" style="justify-content: end;">
+            <a routerLink="/user-bookingSummary" class="btn">View Turf Cart <i
+                class="bi bi-arrow-right-circle-fill"></i></a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h4 style="text-align: center;">There is currently no booking journey available</h4>
+            <h5 style="text-align: center;"> Don't wait <a routerLink="/user-bookingDetails">Book</a> now for an
+              exciting game!</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!this.authService.isLoggedIn()" class="row d-flex justify-content-center align-items-center">
+      <div class="col">
+        <span class="h4">My Bookings</span><br><br>
+
+        <div class="card">
+          <div class="card-body">
+            <h4 style="text-align: center;">You are not logged in</h4>
+            <h5 style="text-align: center;"><a routerLink="/login">Login</a> to see your bookings details</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->

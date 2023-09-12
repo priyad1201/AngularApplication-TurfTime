@@ -1,0 +1,109 @@
+<section class="vh-130" style="background-color: #eee;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px; margin-top: 10px; margin-bottom: 10px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-8">
+                <form [formGroup]="addGame" (ngSubmit)="onSubmit()">
+
+                  <h5 class="fw-normal mb-3 pb-3" style="text-align: center;">Add New Games</h5>
+
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-outline mb-4">
+                        <label class="form-label" for="sportName">Sport Name</label>
+                        <input type="text" id="sportName" name="sportName" class="form-control" formControlName="sportName" />
+                        <div class="text-danger" *ngIf="addGame.controls['sportName'].invalid && addGame.controls['sportName'].touched" >
+                          <small [hidden]="!addGame.controls['sportName'].errors?.['required']">Sports Name is required</small>
+                          <small [hidden]="!addGame.controls['sportName'].errors?.['minlength']">Name should require atleast 4 characters</small>
+                          <!-- <small [hidden]="!addGame.controls['sportName'].errors?.['uniqueSportName']">Sport Already exist</small> -->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-outline mb-4">
+                        <label class="form-label" for="venueName">Venue Name</label>
+                        <select class="form-select" id="venueName" name="venueName" aria-label="Default select example" formControlName="venueName">
+                          <option value="B&C Mills, Stephenson Road, Perambur">Perambur</option>
+                          <option value="2nd Floor, Bharathi Nagar, Kodungaiyur">Kodungaiyur</option>
+                        </select>
+                        <div class="text-danger" *ngIf="addGame.controls['venueName'].invalid && addGame.controls['venueName'].touched" >
+                          <small [hidden]="!addGame.controls['venueName'].errors?.['required']">Venue is required</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-outline mb-4">
+                        <label class="form-label" for="priceForWeekday">Price/hour (Weekdays)</label>
+                        <input type="text" id="priceForWeekday" name="priceForWeekday" class="form-control" formControlName="priceForWeekday"/>
+                        <div class="text-danger" *ngIf="addGame.controls['priceForWeekday'].invalid && addGame.controls['priceForWeekday'].touched" >
+                            <small [hidden]="!addGame.controls['priceForWeekday'].errors?.['required']">Price is required</small>
+                            <small [hidden]="!addGame.controls['priceForWeekday'].errors?.['pattern']">Enter valid amount( numbers only )</small>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-outline mb-4">
+                        <label class="form-label" for="priceForWeekend">Price/hour (Weekend)</label>
+                        <input type="text" id="priceForWeekend" name="priceForWeekend" class="form-control" formControlName="priceForWeekend"/>
+                        <div class="text-danger" *ngIf="addGame.controls['priceForWeekend'].invalid && addGame.controls['priceForWeekend'].touched" >
+                            <small [hidden]="!addGame.controls['priceForWeekend'].errors?.['required']">Price is required</small>
+                            <small [hidden]="!addGame.controls['priceForWeekend'].errors?.['pattern']">Enter valid amount( numbers only )</small>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-outline mb-4">
+                        <label class="form-label" for="description">Description</label>
+                        <textarea type="text" id="description" name="description" class="form-control" formControlName="description"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-outline mb-4">
+                        <label class="form-label" for="imageUrl">Image</label><br>
+                        <!-- <img [src]="selectedFile" height="100" width="150" class="d-block" style="border: solid 0.5px grey" alt="Image Preview"><br> -->
+                        <input type="file" id="imageUrl" name="imageUrl" class="form-control" formControlName="imageUrl" (change)="onSelectFile($event)">
+                        <div class="text-danger" *ngIf="addGame.controls['imageUrl'].invalid && addGame.controls['imageUrl'].touched" >
+                          <small [hidden]="!addGame.controls['imageUrl'].errors?.['required']">Image is required</small>
+                          <!-- <small [hidden]="!addGame.controls['imageUrl'].errors?.['invalidImageFormat']">Invalid Image format</small> -->
+                        </div>
+                        <div class="text-danger" *ngIf="imageFormatError!=null">
+                          <small>{{imageFormatError}}</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-outline mb-4">
+                        <label class="form-label" for="category">Category</label>
+                        <select class="form-select" id="category" name="category" aria-label="Default select example" formControlName="category">
+                          <option value="Indoor">Indoor</option>
+                          <option value="Outdoor">Outdoor</option>
+                        </select>
+                        <div class="text-danger" *ngIf="addGame.controls['category'].invalid && addGame.controls['category'].touched" >
+                          <small [hidden]="!addGame.controls['category'].errors?.['required']">Category is required</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pt-1 mb-4">
+                    <button [disabled]="!addGame.valid" class="btn btn-info btn-lg btn-block" style="margin-left: 40%;" type="submit">Add Games</button>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

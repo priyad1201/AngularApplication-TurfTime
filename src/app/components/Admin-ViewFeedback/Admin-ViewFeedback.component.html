@@ -1,0 +1,49 @@
+<section>
+  <div class="container-fluid my-2 py-2">
+    <nav aria-label="breadcrumb" style="margin-left: 8%;">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/admin-home">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Reviews</li>
+      </ol>
+    </nav>
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-10">
+        <div class="card">
+          <div class="card-body p-4">
+            <h4 class="mb-0">Recent comments</h4>
+            <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
+
+            <div class="d-flex flex-start" *ngFor="let feedback of feedbackList">
+              <div>
+                <h6 class="fw-bold mb-1">{{feedback.fullName}}</h6>
+                <div class="d-flex align-items-center mb-3">
+                  <p class="mb-0">
+                    {{feedback.feedbackDate | date:'MMMM d, yyyy'}}
+                    <!-- <span class="badge bg-primary">Pending</span> -->
+                  </p>
+                  <!-- <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a> -->
+                  <!-- <a [class.link-danger]="isSelected" [class.link-muted]="!isSelected" (click)="toggleClass()" class="link-muted"><i class="fas fa-heart ms-2"></i></a> -->
+                  <a (click)="deleteFeedback(feedback.feedbackId)" class="link-danger" style="cursor: pointer;"><i class="fas fa-trash ms-2"></i></a>
+                </div>
+                <div class="star-rating">
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item" *ngFor="let star of generateStarsArray()">
+                      <i class="fa" [class.fa-star]="star <= feedback.ratings" [class.fa-star-o]="star > feedback.ratings"></i>
+                    </li>
+                  </ul>
+                </div>
+                <p class="mb-0">
+                  {{feedback.comments}}
+                </p>
+                <hr class="my-2"/>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

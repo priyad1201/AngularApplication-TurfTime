@@ -1,0 +1,52 @@
+#background-img {
+  background-image: url(src\assets\images\badminton.png);
+  background-repeat: no-repeat repeat-y;
+  width: 100%;
+  height:35vh;
+  background-size: cover;
+  background-position: 0% 90%;
+  position: relative;
+}
+h5{
+  font-weight: bold;
+  font-size: x-large;
+  text-align: center;
+}
+h4{
+  text-align: center;
+  font-style: italic;
+}
+.location-1{
+  font-size: x-large;
+  font-style: italic;
+  margin-left: 80px;
+}
+.location-2{
+  font-size: x-large;
+  font-style: italic;
+  margin-left: 80px;
+}
+.d-flex{
+  flex-direction: row;
+  justify-content: space-around;
+}
+img{
+  width: 5rem;
+  height: 5rem;
+  justify-content: center;
+  margin: 5px;
+}
+.card{
+  width: max-content;
+  margin: 30px;
+}
+.container-fluid{
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 0%;
+  padding-right: 0%;
+  margin-bottom: 5vh;
+}
+.row{
+  margin-right: 0px;
+}

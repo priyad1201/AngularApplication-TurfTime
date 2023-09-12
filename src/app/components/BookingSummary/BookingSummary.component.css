@@ -1,0 +1,18 @@
+p{
+  text-align: center;
+  font-size: large;
+}
+td{
+  width: 15%;
+}
+.card-payment{
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+}
+.bi{
+  color: black;
+  margin-right: 10px;
+  font-size: 25px;
+} 
+
