@@ -15,48 +15,53 @@
             <button class="btn btn-outline-dark btn-display" (click)="filterBookings('Completed')">Completed</button>
           </div>
           <div class="bg-white card mb-4 order-list shadow-sm">
-            <div *ngFor="let cart of filteredBookings" class="gold-members p-2">
-              <div *ngFor="let game of gameDetails">
-                <div *ngIf="game.sportName == cart.sportName">
-                  <div *ngIf="cart.paymentStatus==='paid'" class="media">
-                    <div ngbAccordion>
-                      <div ngbAccordionItem [collapsed]="true">
-                        <h2 ngbAccordionHeader>
-                          <button ngbAccordionButton>
-                            <div class="col-sm-2">
-                              <img src="TurfTimeApi/wwwroot/GameImage/{{cart.sportImageUrl}}" class="img-fluid" alt="image"
-                                width="200" height="100" style="margin-bottom: 10px;">
-                              <h6 class="mb-2">Booking {{cart.reservationId}}</h6>
-                            </div>
-                            <div class="col-md-3">
-                              <p class="lead fw-normal mb-0">{{cart.sportName}}</p>
-                              Date Of Slot Booked: {{cart.dateOfSlot | date}}
-                            </div>
-                          </button>
-                        </h2>
-                        <div ngbAccordionCollapse>
-                          <div ngbAccordionBody>
-                            <ng-template>
-                              <p class="mb-0" style="text-align: end;">Booked On : {{cart.dateOfBooking | date}}</p>
-                                <div class="row" style="margin-left: 4px;">
-                                  Location : {{cart.venueName}}
-                                </div>
-                                <div class="row" style="margin-left: 4px;">
-                                  Slots :
-                                  <div *ngFor="let slot of cart.timeSlots">
-                                    <p class="text-gray mb-0">{{slot.startTime}} - {{slot.endTime}}</p>
+            <div *ngIf="filteredBookings.length==0" >
+              <h5 style="text-align: center; margin: 20px;">There is no Upcoming Bookings</h5>
+            </div>
+            <div *ngIf="filteredBookings.length!=0" >
+              <div *ngFor="let cart of filteredBookings" class="gold-members p-2">
+                <div *ngFor="let game of gameDetails">
+                  <div *ngIf="game.sportName == cart.sportName">
+                    <div *ngIf="cart.paymentStatus==='paid'" class="media">
+                      <div ngbAccordion>
+                        <div ngbAccordionItem [collapsed]="true">
+                          <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>
+                              <div class="col-sm-2">
+                                <img src="TurfTimeApi/wwwroot/GameImage/{{cart.sportImageUrl}}" class="img-fluid" alt="image"
+                                  width="200" height="100" style="margin-bottom: 10px;">
+                                <h6 class="mb-2">Booking {{cart.reservationId}}</h6>
+                              </div>
+                              <div class="col-md-3">
+                                <p class="lead fw-normal mb-0">{{cart.sportName}}</p>
+                                Date Of Slot Booked: {{cart.dateOfSlot | date}}
+                              </div>
+                            </button>
+                          </h2>
+                          <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                              <ng-template>
+                                <p class="mb-0" style="text-align: end;">Booked On : {{cart.dateOfBooking | date}}</p>
+                                  <div class="row" style="margin-left: 4px;">
+                                    Location : {{cart.venueName}}
                                   </div>
-                                </div>
-                                <hr>
-                                <p class="mb-0"><span class="text-black"> Advance Amount: </span><span class="badge rounded-pill text-bg-success">Paid</span></p>
-                                <p class="mb-0"><span class="text-black"> Balance Amount Payable(at venue): </span>{{ cart.totalAmount - 200| currency:'INR'}}</p>
+                                  <div class="row" style="margin-left: 4px;">
+                                    Slots :
+                                    <div *ngFor="let slot of cart.timeSlots">
+                                      <p class="text-gray mb-0">{{slot.startTime}} - {{slot.endTime}}</p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <p class="mb-0"><span class="text-black"> Advance Amount: </span><span class="badge rounded-pill text-bg-success">Paid</span></p>
+                                  <p class="mb-0"><span class="text-black"> Balance Amount Payable(at venue): </span>{{ cart.totalAmount - 200| currency:'INR'}}</p>
 
-                                <div class="col d-flex" style="justify-content: end;">
-                                  <button class="btn btn-md btn-outline-primary" style="margin: 5px;padding-left: 5px;padding-right: 5px;" (click)="open(content)">GIVE US YOUR FEEDBACK</button>
-                                  <a class="btn btn-sm btn-outline-primary" routerLink="/contactus" style="margin: 5px; justify-content: end;">HELP</a>
-                                  <a class="btn btn-sm btn-outline-primary" routerLink="/user-bookingDetails/{{game.id}}" style="margin: 5px; justify-content: end;">RE-BOOK</a>
-                                </div>
-                            </ng-template>
+                                  <div class="col d-flex" style="justify-content: end;">
+                                    <button class="btn btn-md btn-outline-primary" style="margin: 5px;padding-left: 5px;padding-right: 5px;" (click)="open(content)">GIVE US YOUR FEEDBACK</button>
+                                    <a class="btn btn-sm btn-outline-primary" routerLink="/contactus" style="margin: 5px; justify-content: end;">HELP</a>
+                                    <a class="btn btn-sm btn-outline-primary" routerLink="/user-bookingDetails/{{game.id}}" style="margin: 5px; justify-content: end;">RE-BOOK</a>
+                                  </div>
+                              </ng-template>
+                            </div>
                           </div>
                         </div>
                       </div>

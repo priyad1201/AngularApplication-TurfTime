@@ -49,9 +49,9 @@
             </div>
           </div>
           </div>
-          <div class="location-1 mt-3">
+          <div class="location-1 mt-2">
             <h5>Available at <i class="bi bi-geo-alt-fill"></i> {{gameData.venueName | uppercase}} </h5><br>
-            <h6> For more details contact us<a style="margin-left: 5px; padding: 10px;" href="tel:+91 9084422881" class="btn btn-outline-info"><i class="bi bi-telephone-inbound-fill" style="padding: 5px;"></i> +91 9084422881</a></h6>
+            <h6 *ngIf="!offerService.isOfferValid"> For more details contact us<a style="margin-left: 5px; padding: 10px;" href="tel:+91 9084422881" class="btn btn-outline-info"><i class="bi bi-telephone-inbound-fill" style="padding: 5px;"></i> +91 9084422881</a></h6>
             <a style="float: right;" routerLink="/user-bookingDetails/{{gameData.id}}" class="btn btn-outline-info">Book Slot</a>
           </div>
         </div>

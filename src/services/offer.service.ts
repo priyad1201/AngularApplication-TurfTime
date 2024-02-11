@@ -16,7 +16,7 @@ export class OfferService {
   applyOffer(){
     this.isOfferValid = true;
     const x = setInterval(()=>{
-      var countDownDate = new Date("August 08,2023 17:45:00").getTime();
+      var countDownDate = new Date("October 29,2023 17:45:00").getTime();
       var todayDate = new Date().getTime();
 
       var offerTimeAvailable = countDownDate - todayDate;
