@@ -5,9 +5,9 @@ export const environment = {
   logging: {
     level: NgxLoggerLevel.DEBUG,
     serverLogLevel: NgxLoggerLevel.ERROR,
-    serverLoggingUrl: 'https://localhost:7092/api/logs'
+    serverLoggingUrl: 'https://localhost:7284/api/logs'
   },
-  apiBaseUrl : 'https://localhost:7092/api/'
+  apiBaseUrl : 'https://localhost:7284/api/'
 }
 export const timeSlots = [
   { startTime: '6:00 AM', endTime: '7:00 AM', selected: false, available: true },
